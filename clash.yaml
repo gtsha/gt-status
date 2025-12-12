@@ -10,8 +10,8 @@ proxies:
     type: socks5
     server: 121.31.233.116
     port: 13206
-    username: f41b3e22528ec900
-    password: d6ead5c369ac4fdca17a4c94c769b8ce
+    username: 2be1dfe701bce0d8
+    password: 2641a4e66b6e4de6b0725765e66ea694
     # username: 3utpaj
     # password: f0swju4q
     udp: true
