@@ -8,8 +8,8 @@ external-controller: 0.0.0.0:9090
 proxies:
   - name: SOCKS5-Proxy
     type: socks5
-    server: 1.193.208.77
-    port: 12067
+    server: 121.31.233.116
+    port: 13206
     username: f41b3e22528ec900
     password: d6ead5c369ac4fdca17a4c94c769b8ce
     # username: 3utpaj
