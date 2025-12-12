@@ -1,0 +1,30 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule  # 使用规则模式
+ipv6: false
+log-level: info
+external-controller: 0.0.0.0:9090
+
+proxies:
+  - name: SOCKS5-Proxy
+    type: socks5
+    server: 42.5.21.60
+    port: 40035
+    username: 3utpaj
+    password: f0swju4q
+    udp: true
+    sni: 127.0.0.1
+    skip-cert-verify: true
+
+proxy-groups:
+  - name: Default Group
+    type: select
+    proxies:
+      - SOCKS5-Proxy
+      - DIRECT
+    default: SOCKS5-Proxy
+
+rules:
+  - MATCH,Default Group  # 匹配所有其他流量
+#  - PROCESS-NAME,com.eg.android.AlipayGphone,SOCKS5-Proxy
+  - MATCH,*,DIRECT
