@@ -1,0 +1,82 @@
+# port of HTTP
+port: 7890
+
+# port of SOCKS5
+socks-port: 7891
+
+# (HTTP and SOCKS5 in one port)
+# mixed-port: 7890
+
+# redir port for Linux and macOS
+# redir-port: 7892
+
+allow-lan: false
+
+# Only applicable when setting allow-lan to true
+# "*": bind all IP addresses
+# 192.168.122.11: bind a single IPv4 address
+# "[aaaa::a8aa:ff:fe09:57d8]": bind a single IPv6 address
+# bind-address: "*"
+
+# ipv6: false # when ipv6 is false, each clash dial with ipv6, but it's not affect the response of the dns server, default is false
+
+# rule / global / direct (default is rule)
+mode: global
+
+# set log level to stdout (default is info)
+# info / warning / error / debug / silent
+log-level: info
+
+# RESTful API for clash
+external-controller: 127.0.0.1:9090
+
+auto-update: true
+update-interval: 60 # 每分钟更新一次
+
+
+proxies:
+
+  # socks5
+  - name: "socks"
+    type: socks5
+    server: 100.125.14.126
+#    server: 100.125.14.126
+    port: 8889
+#    port: 62473
+#    username: E6BC3187
+#    password: 1621A65C973C
+    # tls: true
+    # skip-cert-verify: true
+    # udp: true
+
+  # http
+  - name: "http"
+    type: http
+    server: 100.125.14.126
+#    server: 100.125.14.126
+    port: 8888
+#    port: 62473
+#    username: E6BC3187
+#    password: E6BC3187
+    # tls: true # https
+    # skip-cert-verify: true
+
+proxy-groups:
+  # select is used for selecting proxy or proxy group
+  # you can use RESTful API to switch proxy, is recommended for use in GUI.
+  - name: Proxy
+    type: select
+    proxies:
+      - socks
+      - http
+
+rules:
+  - DOMAIN-SUFFIX,ad.com,REJECT
+  # rename SOURCE-IP-CIDR and would remove after prerelease
+  - SRC-IP-CIDR,192.168.1.201/32,DIRECT
+  # optional param "no-resolve" for IP rules (GEOIP IP-CIDR)
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - GEOIP,CN,DIRECT
+  - DST-PORT,80,DIRECT
+  - SRC-PORT,7777,DIRECT
+  - MATCH,Proxy
